@@ -120,6 +120,9 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
 
+## 多机集群
+若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[多机集群](#多机集群)的操作即可，注意在新机器上可能要替换新机器的存储路径。
+
 ## Hadoop使用
 ### 初始化数据库路径
 注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
