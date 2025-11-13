@@ -24,7 +24,13 @@ source ~/.bashrc
 ```
 **配置Hadoop的java**
 ```bash
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+```bash
+vim /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+# 在文末添加`export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64`
 ```
 **验证Hadoop是否安装成功**
 ```bash
@@ -43,7 +49,7 @@ hadoop version
 ```bash
 vim /usr/local/hadoop/etc/hadoop/core-site.xml
 ```
-有如下配置:
+有如下配置: (建议先sudo lsof -i :9000看一下端口使用情况)
 ```xml
 <configuration>
   <!-- 设置 HDFS 的主入口 (NameNode 地址) -->
@@ -133,7 +139,8 @@ sudo chmod -R 770 /app/data/hadoop
 ```bash
 hdfs namenode -format
 ```
-启动服务（注意需要配置自己账户的ssh-key）
+**启动服务**（注意需要配置自己账户的ssh-key，且默认不会开机自启）
 ```bash
 start-dfs.sh
 ```
+
