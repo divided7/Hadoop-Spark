@@ -140,6 +140,12 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
     <value>hadoop</value> <!-- 每台机器的`hadoop`组成员才有超级权限 -->
   </property>
 
+  <!-- 禁用主机名检查 如果没禁用就要写host 所有DataNode都要写 -->
+  <property>
+      <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+      <value>false</value>
+  </property>
+
 </configuration>
 
 ```
@@ -180,15 +186,26 @@ hdfs dfs -chmod 770 /
 
 ## 多机集群
 若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[数据库配置](#数据库配置)的操作即可
-
-
-
-
 注意：
 * 在新机器上可能要替换新机器的存储路径。
 * 若新机器上只想要读取数据，不想作为节点，则不要`start-dfs.sh`或者不要创建`/data/hadoop/hdfs/datanode`路径
 * 若想新机器作为分布式节点，则需要上面完整操作。这里注意需要多台机器有相同的用户名
 * 每台机器应该单独建立一个管理hadoop的账户比较好
+
+每台机器都要：
+```bash
+vim $HADOOP_HOME/etc/hadoop/workers
+# 将所有DataNode的Ip按行写入
+```
+
+如果NameNode格式化了，所有DataNode都要删除/data/hadoop/hdfs/datanode下所有内容，但是要注意DataNode不能执行格式化操作
+
+机器之间ssh密钥要准备好 密钥权限有时候会出问题
+```bash
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+```
+
 
 
 ## Hadoop启动
