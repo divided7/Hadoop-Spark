@@ -93,7 +93,7 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
     <value>file:///data/hadoop/hdfs/datanode</value>
   </property>
 
-  <!-- HDFS 副本数（单机设置 1，多机集群可设置 2-3） -->
+  <!-- HDFS 副本数（单机设置 1，多机集群可设置 2-3，越大对读取速度和数据安全越有利，但是磁盘占用更大；最小值为1，最大值为DataNode数量） -->
   <property>
     <name>dfs.replication</name>
     <value>1</value>
