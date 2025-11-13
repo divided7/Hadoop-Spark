@@ -37,7 +37,16 @@ vim $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 # 添加  export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 ```
-
+加入以下内容
+```bash
+vim ~/.bashrc
+# 添加以下内容
+# export HADOOP_HOME=/usr/local/hadoop
+# export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+# export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+# export PATH=$JAVA_HOME/bin:$PATH
+source ~/.bashrc
+```
 
 
 **验证Hadoop是否安装成功**
