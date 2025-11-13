@@ -143,7 +143,7 @@ sudo mkdir -p /app/data/hadoop/hdfs/namenode
 sudo mkdir -p /app/data/hadoop/hdfs/datanode
 sudo mkdir -p /app/data/hadoop/tmp
 
-# 创建hadoop组和权限管理 如果`hdfs-site.xml`里权限校验是false则不需要分组配置
+# 创建hadoop组和权限管理 如果机器要作为DataNode一定要配置
 sudo groupadd hadoop
 sudo usermod -aG hadoop {user_name}
 sudo chown -R {user_name}:hadoop /app/data/hadoop
