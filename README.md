@@ -120,10 +120,6 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
 
-## 多机集群
-若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[多机集群](#多机集群)的操作即可，注意在新机器上可能要替换新机器的存储路径。
-
-## Hadoop启动
 ### 初始化数据库路径（初次使用或修改xml后需要初始化）
 注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
 ```bash
@@ -137,7 +133,13 @@ sudo usermod -aG hadoop {user_name}
 sudo chown -R {user_name}:hadoop /app/data/hadoop
 sudo chmod -R 770 /app/data/hadoop
 ```
+## 多机集群
+若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[多机集群](#多机集群)的操作即可，注意在新机器上可能要替换新机器的存储路径。
 
+若新机器上只想要读取数据，不想作为节点，则不要`start-dfs.sh`或者不要创建`/data/hadoop/hdfs/datanode`路径；若想新机器作为分布式节点，则需要上面完整操作
+
+
+## Hadoop启动
 ### 格式化数据库（初次使用需要格式化）
 在Namenode机器上格式化数据库(初次使用前需要格式化)
 ```bash
