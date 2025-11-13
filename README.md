@@ -40,7 +40,8 @@ hadoop version
 
 ## 数据库配置
 ### core-site
-```vim /usr/local/hadoop/etc/hadoop/core-site.xml
+```bash
+vim /usr/local/hadoop/etc/hadoop/core-site.xml
 ```
 有如下配置:
 ```xml
@@ -74,7 +75,8 @@ hadoop version
 对于`core-site.xml`，可以在多台机器上使用相同的`core-site.xml`配置文件。
 
 ### hdfs-site
-```vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+```bash
+vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 有如下配置:
 ```xml
