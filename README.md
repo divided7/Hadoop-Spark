@@ -17,21 +17,21 @@ tar -xzvf hadoop-3.4.2.tar.gz
 sudo mv hadoop-3.4.2 /usr/local/hadoop
 ```
 **配置环境变量**
+通过下面方法可以全账户都获得权限
 ```bash
-echo 'export HADOOP_HOME=/usr/local/hadoop' >> ~/.bashrc
-echo 'export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin' >> ~/.bashrc
-source ~/.bashrc
+sudo tee /etc/profile.d/hadoop.sh > /dev/null << 'EOF'
+# Hadoop 主目录
+export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+# Java 目录
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+EOF
+source /etc/profile.d/hadoop.sh
 ```
-**配置Hadoop的java**
-```bash
-echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-```
-```bash
-vim /usr/local/hadoop/etc/hadoop/hadoop-env.sh
-# 在文末添加`export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64`
-```
+
+
 **验证Hadoop是否安装成功**
 ```bash
 hadoop version
@@ -120,23 +120,27 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
 
-### 初始化数据库路径（初次使用或修改xml后需要初始化）
+### 初始化数据库路径（初次使用或修改xml后需要初始化）(如果本机不是集群节点不需要此步骤)
 注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
 ```bash
 sudo mkdir -p /app/data/hadoop/hdfs/namenode
 sudo mkdir -p /app/data/hadoop/hdfs/datanode
 sudo mkdir -p /app/data/hadoop/tmp
 
-# 创建hadoop组和权限管理
+# 创建hadoop组和权限管理 如果`hdfs-site.xml`里权限校验是false则不需要分组配置
 sudo groupadd hadoop
 sudo usermod -aG hadoop {user_name}
 sudo chown -R {user_name}:hadoop /app/data/hadoop
 sudo chmod -R 770 /app/data/hadoop
 ```
-## 多机集群
-若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[多机集群](#多机集群)的操作即可，注意在新机器上可能要替换新机器的存储路径。
 
-若新机器上只想要读取数据，不想作为节点，则不要`start-dfs.sh`或者不要创建`/data/hadoop/hdfs/datanode`路径；若想新机器作为分布式节点，则需要上面完整操作
+
+## 多机集群
+若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[数据库配置](#数据库配置)的操作即可
+注意：
+* 在新机器上可能要替换新机器的存储路径。
+* 若新机器上只想要读取数据，不想作为节点，则不要`start-dfs.sh`或者不要创建`/data/hadoop/hdfs/datanode`路径
+* 若想新机器作为分布式节点，则需要上面完整操作
 
 
 ## Hadoop启动
