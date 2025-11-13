@@ -17,7 +17,7 @@ tar -xzvf hadoop-3.4.2.tar.gz
 sudo mv hadoop-3.4.2 /usr/local/hadoop
 ```
 **配置环境变量**
-通过下面方法可以全账户都获得权限
+通过下面方法可以全账户都直接拥有环境变量
 ```bash
 sudo tee /etc/profile.d/hadoop.sh > /dev/null << 'EOF'
 # Hadoop 主目录
@@ -111,12 +111,20 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
     <value>268435456</value> <!-- 256MB -->
   </property>
 
-  <!-- 是否启用权限校验（单机可关闭，生产可开启） -->
+  <!-- 是否启用权限校验（单机可关闭，生产可开启） 注意如果开启权限要进行 -->
   <property>
     <name>dfs.permissions</name>
     <value>false</value>
   </property>
+
+   <!-- 这里指定你想要的超级组名 -->
+  <property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hadoop</value> <!-- 每台机器的`hadoop`组成员才有超级权限 -->
+  </property>
+
 </configuration>
+
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
 
@@ -149,8 +157,9 @@ sudo chmod -R 770 /app/data/hadoop
 ```bash
 hdfs namenode -format
 ```
-### 启动服务（注意需要配置自己账户的ssh-key，且默认不会开机自启）
+### 启停服务（注意需要配置自己账户的ssh-key，且默认不会开机自启）
 ```bash
+stop-dfs.sh 
 start-dfs.sh
 ```
 检查进程是否启动
