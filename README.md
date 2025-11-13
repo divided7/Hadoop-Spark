@@ -49,7 +49,7 @@ vim /usr/local/hadoop/etc/hadoop/core-site.xml
   <!-- 设置 HDFS 的主入口 (NameNode 地址) -->
   <property>
     <name>fs.defaultFS</name>
-    <!-- 下面的value如果要只支持单机可以写为：<value>hdfs://data-server:9000</value>，但是考虑到扩展性，写成下面的多机版本更好 也兼容单机 -->
+    <!-- 例如<value>hdfs:/192.168.1.100:9000</value>，这里注意每台机器都应该是相同的NameNode -->
     <value>hdfs://namenode-host:9000</value>
   </property>
 
@@ -113,3 +113,27 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 </configuration>
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
+
+### 初始化数据库路径
+注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
+```bash
+sudo mkdir -p /app/data/hadoop/hdfs/namenode
+sudo mkdir -p /app/data/hadoop/hdfs/datanode
+sudo mkdir -p /app/data/hadoop/tmp
+
+# 创建hadoop组和权限管理
+sudo groupadd hadoop
+sudo usermod -aG hadoop {user_name}
+sudo chown -R {user_name}:hadoop /app/data/hadoop
+sudo chmod -R 770 /app/data/hadoop
+```
+
+### 格式化数据库
+在Namenode机器上格式化数据库(初次使用前需要格式化)
+```bash
+hdfs namenode -format
+```
+启动服务（注意需要配置自己账户的ssh-key）
+```bash
+start-dfs.sh
+```
