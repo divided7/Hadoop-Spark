@@ -53,10 +53,10 @@ vim /usr/local/hadoop/etc/hadoop/core-site.xml
     <value>hdfs://namenode-host:9000</value>
   </property>
 
-  <!-- 临时文件目录（建议放到 SSD 或系统盘） -->
+  <!-- 临时文件目录(格局实际情况修改value） -->
   <property>
     <name>hadoop.tmp.dir</name>
-    <value>/data/hadoop/tmp</value>
+    <value>/app/data/hadoop/tmp</value>
   </property>
 
   <!-- I/O 缓冲大小（可适度调大） -->
@@ -81,16 +81,16 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 有如下配置:
 ```xml
 <configuration>
-  <!-- NameNode 元数据目录（如果本机也做 NameNode） -->
+  <!-- NameNode 元数据目录（如果本机也做 NameNode, 注意根据实际修改value路径） -->
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>file:///data/hadoop/hdfs/namenode</value>
+    <value>file:/app/data/hadoop/hdfs/namenode</value>
   </property>
 
-  <!-- DataNode 数据目录（必须创建，DataNode 才能存储块） -->
+  <!-- DataNode 数据目录（必须创建，DataNode 才能存储块, 注意根据实际修改value路径） -->
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>file:///data/hadoop/hdfs/datanode</value>
+    <value>file:/app/data/hadoop/hdfs/datanode</value>
   </property>
 
   <!-- HDFS 副本数（单机设置 1，多机集群可设置 2-3，越大对读取速度和数据安全越有利，但是磁盘占用更大；最小值为1，最大值为DataNode数量） -->
