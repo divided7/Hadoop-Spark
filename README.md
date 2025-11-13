@@ -120,6 +120,7 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 对于`hdfs-site.xml`，可以在多台机器上使用相同的`hdfs-site.xml`配置文件。
 
+## Hadoop使用
 ### 初始化数据库路径
 注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
 ```bash
@@ -142,5 +143,23 @@ hdfs namenode -format
 **启动服务**（注意需要配置自己账户的ssh-key，且默认不会开机自启）
 ```bash
 start-dfs.sh
+```
+检查进程是否启动
+```bash
+jps
+>> 3290908 NameNode
+>> 3286873 DataNode
+>> 3287143 SecondaryNameNode
+```
+如果如上就正常。如果没有NameNode可能是端口冲突，可以`tail -n 50 $HADOOP_HOME/logs/hadoop-user1-namenode-*.log`查看日志
+
+### Hadoop应用
+* `http://localhost:9870`: 9870是默认NameNode的webui端口
+* `http://localhost:9864`: 9864是默认DataNode的webui端口
+```bash
+hdfs dfs -ls / # 等价于本地的`ls /`
+hdfs dfs -mkdir /test  # 等价于本地的`mkdir /test`
+hdfs dfs -put /path/to/local/dir /path/in/hdfs/ # 将本地文件或文件夹上传到hdfs指定路径
+hdfs dfs -get /file ./ # 将hdfs文件拉取回本地
 ```
 
