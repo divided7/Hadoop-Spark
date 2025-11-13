@@ -195,7 +195,7 @@ hdfs dfs -chmod 770 /
 ### 格式化数据库（初次使用需要格式化）
 在Namenode机器上格式化数据库(初次使用前需要格式化)
 ```bash
-hdfs namenode -format
+hdfs namenode -format（注意 如果在NameNode上做了格式化，所有的DataNode都要rm -rf /path/to/hadoop/hdfs/datanode/*）
 ```
 ### 启停服务（注意需要配置自己账户的ssh-key，且默认不会开机自启）
 ```bash
