@@ -31,11 +31,13 @@ EOF
 source /etc/profile.d/hadoop.sh
 ```
 
-在`$HADOOP_HOME/etc/hadoop/hadoop-env.sh`中加入以下内容
+加入以下内容
+```bash
+vim $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+# 添加  export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+source $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 ```
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-export HADOOP_LOG_DIR=/home/hadoop/hadoop-logs
-```
+
 
 
 **验证Hadoop是否安装成功**
