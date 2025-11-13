@@ -141,6 +141,14 @@ sudo usermod -aG hadoop {user_name}
 sudo chown -R {user_name}:hadoop /app/data/hadoop
 sudo chmod -R 770 /app/data/hadoop
 ```
+### 权限问题
+在`hdfs-site.xml`中的superusergroup中可以指定超级组，例如上面例子超级组是”hadoop“。对于NameNode主机，假如只有user1一个账户，那么其他机器是没办法获得组权限的，因此需要在NameNode新建一些与其他机器同用户名的账户，并在NameNode上将这些账户加入hadoop组，其他机器上的同名用户就能用了。
+注意根目录权限：
+```bash
+hdfs dfs -chmod 770 /
+```
+
+
 
 
 ## 多机集群
