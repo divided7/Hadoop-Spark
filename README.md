@@ -123,8 +123,8 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ## 多机集群
 若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[多机集群](#多机集群)的操作即可，注意在新机器上可能要替换新机器的存储路径。
 
-## Hadoop使用
-### 初始化数据库路径
+## Hadoop启动
+### 初始化数据库路径（初次使用或修改xml后需要初始化）
 注意这里的所有路径应和`core-site.xml`中的**tmp**目录和`hdfs-site.xml`中的**namenode**，**datanode**目录相对应
 ```bash
 sudo mkdir -p /app/data/hadoop/hdfs/namenode
@@ -138,12 +138,12 @@ sudo chown -R {user_name}:hadoop /app/data/hadoop
 sudo chmod -R 770 /app/data/hadoop
 ```
 
-### 格式化数据库
+### 格式化数据库（初次使用需要格式化）
 在Namenode机器上格式化数据库(初次使用前需要格式化)
 ```bash
 hdfs namenode -format
 ```
-**启动服务**（注意需要配置自己账户的ssh-key，且默认不会开机自启）
+### 启动服务（注意需要配置自己账户的ssh-key，且默认不会开机自启）
 ```bash
 start-dfs.sh
 ```
@@ -156,7 +156,7 @@ jps
 ```
 如果如上就正常。如果没有NameNode可能是端口冲突，可以`tail -n 50 $HADOOP_HOME/logs/hadoop-user1-namenode-*.log`查看日志
 
-### Hadoop应用
+## Hadoop简单应用
 * `http://localhost:9870`: 9870是默认NameNode的webui端口
 * `http://localhost:9864`: 9864是默认DataNode的webui端口
 ```bash
