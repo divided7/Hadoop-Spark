@@ -31,6 +31,12 @@ EOF
 source /etc/profile.d/hadoop.sh
 ```
 
+在`$HADOOP_HOME/etc/hadoop/hadoop-env.sh`中加入以下内容
+```
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export HADOOP_LOG_DIR=/home/hadoop/hadoop-logs
+```
+
 
 **验证Hadoop是否安装成功**
 ```bash
@@ -153,6 +159,10 @@ hdfs dfs -chmod 770 /
 
 ## 多机集群
 若需要多机配置，重复上述[数据服务器配置](#数据服务器配置)和[数据库配置](#数据库配置)的操作即可
+
+
+
+
 注意：
 * 在新机器上可能要替换新机器的存储路径。
 * 若新机器上只想要读取数据，不想作为节点，则不要`start-dfs.sh`或者不要创建`/data/hadoop/hdfs/datanode`路径
