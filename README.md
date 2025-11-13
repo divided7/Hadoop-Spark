@@ -165,4 +165,3 @@ hdfs dfs -mkdir /test  # 等价于本地的`mkdir /test`
 hdfs dfs -put /path/to/local/dir /path/in/hdfs/ # 将本地文件或文件夹上传到hdfs指定路径
 hdfs dfs -get /file ./ # 将hdfs文件拉取回本地
 ```
-
