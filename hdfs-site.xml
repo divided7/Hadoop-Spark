@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <!-- NameNode 元数据目录（如果本机也做 NameNode） -->
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:/app/data/hadoop/hdfs/namenode</value>
+  </property>
+
+
+<!-- 开启 WebHDFS -->
+<property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+</property>
+
+  <!-- NameNode HTTP 端口 -->
+  <property>
+      <name>dfs.namenode.http-address</name>
+      <value>0.0.0.0:50070</value> <!-- 或你希望绑定的 IP:port -->
+  </property>
+
+  <!-- DataNode 数据目录（必须创建，DataNode 才能存储块） -->
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:/app/data/hadoop/hdfs/datanode</value>
+  </property>
+
+  <!-- HDFS 副本数（单机设置 1，多机集群可设置 2-3，越大对读取速度和数据安全越有利，但是磁盘占用更大；最小值为1，最大值为DataNode数量） -->
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+
+  <!-- HDFS 块大小（可以根据大文件或图片大小调整，默认 128MB） -->
+  <property>
+    <name>dfs.blocksize</name>
+    <value>268435456</value> <!-- 256MB -->
+  </property>
+
+  <!-- 是否启用权限校验（单机可关闭，生产可开启） -->
+  <property>
+    <name>dfs.permissions</name>
+    <value>true</value>
+  </property>
+ 
+  <!-- 禁用主机名检查 -->
+  <property>
+      <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+      <value>false</value>
+  </property>
+
+  <!-- 这里指定你想要的超级组名 -->
+  <property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hadoop</value> <!-- 每台机器的`hadoop`组成员才有超级权限 -->
+  </property>
+
+</configuration>

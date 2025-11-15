@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <!-- 下面的value如果要只支持单机可以写为：<value>hdfs://data-server:9000</value>，但是考虑到扩展性，写成下面的多机版本更好 也兼容单机 -->
+    <value>hdfs://172.16.200.149:9002</value>
+  </property>
+
+  <!-- 临时文件目录（建议放到 SSD 或系统盘） -->
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/app/data/hadoop/tmp</value>
+  </property>
+
+  <!-- I/O 缓冲大小（可适度调大） -->
+  <property>
+    <name>io.file.buffer.size</name>
+    <value>131072</value> <!-- 128 KB -->
+  </property>
+
+  <!-- DataNode 地址 -->
+  <property>
+    <name>dfs.datanode.address</name>
+    <value>0.0.0.0:50010</value>
+  </property>
+
+  <!-- 如果存在多网卡，可指定绑定的主机名/IP -->
+  <property>
+    <name>dfs.namenode.rpc-bind-host</name>
+    <value>0.0.0.0</value>
+  </property>
+</configuration>
