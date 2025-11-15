@@ -1,4 +1,5 @@
 # Hadoop-Spark 分布式数据存储 for 训练数据
+Hadoop对于监控和管理并没有充分的工具，可以考虑用Ambari搭建平台
 ## 数据服务器配置
 ### 安装Java11
 ```bash
